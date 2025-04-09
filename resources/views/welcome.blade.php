@@ -53,8 +53,10 @@
             }
         </script>
     </head>
-    <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
-        <!-- Navigation -->
+    <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen bg-cover bg-center bg-no-repeat"
+    style="background-image: url('https://img.freepik.com/free-vector/light-green-paint-background_78370-1861.jpg');">
+
+    <!-- Navigation -->
         <nav class="bg-white dark:bg-gray-800 shadow-md">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
