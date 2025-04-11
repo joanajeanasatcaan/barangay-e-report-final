@@ -45,4 +45,9 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class); // Assuming Report model is correctly set up
+    }
 }
