@@ -1,87 +1,77 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Your Report Page') }}
-        </h2>
+        {{-- <div class=""> --}}
+            <div class="flex items-center justify-between ">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                    {{ __('Your Report Page') }}
+                </h2>
+                <a href="{{ route('reports.create') }}"
+                    class="inline-flex items-center px-4 py-2 text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <i class='mr-2 bx bx-plus'></i>Report Incident
+                </a>
+            </div>
+            <div class="flex items-start justify-between">
+                <p class="text-gray-500 ">
+                    {{ __('View and track all the incidents youve reported') }}
+                </p>
+            </div>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="flex justify-center ">
                 <div class="p-6 text-gray-900">
                     @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
                     @endif
 
-                    <div class="mb-4">
-                        <a href="{{ route('reports.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Submit New Report
-                        </a>
-                    </div>
+
 
                     @if ($reports->isEmpty())
-                        <p>No reports found.</p>
+                    <p class="text-sm text-gray-500">You haven't reported any incidents yet. Click 'Report Incident' to
+                        submit a new report..</p>
                     @else
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Title
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Status
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Photo
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Created At
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Actions
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($reports as $report)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ $report->title }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ $report->status }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            @if ($report->photo_path)
-                                                <img src="{{ asset('storage/' . $report->photo_path) }}" alt="Evidence" class="h-16 w-16 object-cover">
-                                            @else
-                                                No photo
-                                            @endif
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ $report->created_at->format('Y-m-d H:i:s') }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex space-x-2">
-                                                <a href="{{ route('reports.edit', $report->id) }}" class="inline-flex items-center px-3 py-1 bg-yellow-600 border border-transparent rounded-md font-semibold text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                                                    Edit
-                                                </a>
-
-                                                <form action="{{ route('reports.destroy', $report->id) }}" method="POST" class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="inline-flex items-center px-3 py-1 bg-red-600 border border-transparent rounded-md font-semibold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" onclick="return confirm('Are you sure you want to delete this report?')">
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        @foreach ($reports as $report)
+                        <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-gray-800">{{ $report->title }}</h3>
+                            <p class="text-sm text-gray-600 truncate">{{ $report->description }}</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <span
+                                    class="inline-block px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full">{{
+                                    $report->status }}</span>
+                                <a href="{{ route('reports.show', $report->id) }}"
+                                    class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                        <path fill-rule="evenodd"
+                                            d="M.458 10c1.762-3 4.948-4 8.994-4 4.046 0 7.232 1 8.994 4-1.762 3-4.948 4-8.994 4-4.046 0-7.232-1-8.994-4z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    View Details
+                                </a>
+                            </div>
+                            <div class="flex mt-4 space-x-2">
+                                <a href="{{ route('reports.edit', $report->id) }}"
+                                    class="inline-flex items-center px-3 py-1 font-semibold text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                    Edit
+                                </a>
+                                <form action="{{ route('reports.destroy', $report->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="inline-flex items-center px-3 py-1 font-semibold text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                        onclick="return confirm('Are you sure you want to delete this report?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                     @endif
                 </div>
             </div>

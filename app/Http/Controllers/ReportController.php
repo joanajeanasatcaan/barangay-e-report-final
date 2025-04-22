@@ -124,5 +124,20 @@ public function destroy($id)
     return redirect()->route('reports.index')->with('success', 'Report deleted successfully.');
 }
 
+public function show($id)
+{
+    $report = Report::findOrFail($id);
+    if ($report->user_id !== Auth::id()) {
+        abort(403, 'Unauthorized action.');
+    }
+    return view('reports.show', compact('report'));
+}
+
+public function adminIndex()
+{
+    $reports = Report::all();
+    return view('admin.index', compact('reports'));
+}
+
 
 }
