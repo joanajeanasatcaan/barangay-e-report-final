@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Foreign key to users table
+            $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('description');
-            $table->string('status')->default('Pending'); // e.g., Pending, On Progress, Resolved
-            $table->string('photo_path')->nullable(); // Store the path to the uploaded photo
+            $table->string('location')->nullable();
+            $table->string('category')->nullable();
+            $table->string('status')->default('Pending');
+            $table->string('photo_path')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

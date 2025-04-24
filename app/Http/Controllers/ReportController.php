@@ -19,35 +19,41 @@ class ReportController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'photo' => 'nullable|image|max:2048', // Limit to 2MB
+            'location' => 'required|string|max:255',
+            'category' => 'required|in:Vandalism,Illegal Gambling,Littering/Garbage Issue,Neighborhood Dispute',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $report = new Report();
-        $report->user_id = Auth::id();
         $report->title = $request->title;
         $report->description = $request->description;
+        $report->location = $request->location;
+        $report->category = $request->category;
+        $report->user_id = Auth::id();
         $report->status = 'Pending';
 
-        if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('reports', 'public');
+        if ($request->hasFile('photos')) {
+            $path = $request->file('photos')->store('reports', 'public');
             $report->photo_path = $path;
         }
 
         $report->save();
 
-        return redirect()->route('dashboard')->with('success', 'Report submitted successfully.');
+        return redirect()->route('reports.index')->with('success', 'Report submitted successfully.');
     }
-
     public function userDashboard()
     {
-        $reports = Auth::user()->reports; // Fetch reports submitted by the authenticated user
+        $reports = Auth::user()->reports;
         return view('dashboard', compact('reports'));
     }
 
     public function adminDashboard()
     {
-        $reports = Report::all(); // Fetch all reports for admin
-        return view('admin.dashboard', compact('reports'));
+        $pendingCount = Report::where('status', 'Pending')->count();
+        $onProgressCount = Report::where('status', 'On Progress')->count();
+        $resolvedCount = Report::where('status', 'Resolved')->count();
+
+        return view('admin.dashboard', compact('pendingCount', 'onProgressCount', 'resolvedCount'));
     }
 
     public function updateStatus(Request $request, $id)
@@ -64,80 +70,60 @@ class ReportController extends Controller
     }
 
     public function index()
-{
-    $reports = Auth::user()->reports; // Fetch reports submitted by the authenticated user
-    return view('reports.index', compact('reports')); // Pass $reports to the view
-}
-
-public function edit($id)
-{
-    $report = Report::findOrFail($id);
-    if ($report->user_id !== Auth::id()) {
-        abort(403, 'Unauthorized action.');
-    }
-    return view('reports.edit', compact('report'));
-}
-
-public function update(Request $request, $id)
-{
-    $report = Report::findOrFail($id);
-    if ($report->user_id !== Auth::id()) {
-        abort(403, 'Unauthorized action.');
+    {
+        $reports = Report::where('user_id', Auth::id())->get();
+        return view('reports.index', compact('reports'));
     }
 
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'photo' => 'nullable|image|max:2048', // Optional new photo
-    ]);
+    public function edit($id)
+    {
+        $report = Report::findOrFail($id);
+        if ($report->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+        return view('reports.edit', compact('report'));
+    }
 
-    $report->title = $request->title;
-    $report->description = $request->description;
 
-    if ($request->hasFile('photo')) {
-        // Delete old photo if it exists
+    public function destroy($id)
+    {
+        $report = Report::findOrFail($id);
+        if ($report->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         if ($report->photo_path) {
             Storage::disk('public')->delete($report->photo_path);
         }
-        $path = $request->file('photo')->store('reports', 'public');
-        $report->photo_path = $path;
+
+        $report->delete();
+
+        return redirect()->route('reports.index')->with('success', 'Report deleted successfully.');
     }
 
-    $report->save();
-
-    return redirect()->route('reports.index')->with('success', 'Report updated successfully.');
-}
-
-public function destroy($id)
-{
-    $report = Report::findOrFail($id);
-    if ($report->user_id !== Auth::id()) {
-        abort(403, 'Unauthorized action.');
+    public function show($id)
+    {
+        $report = Report::findOrFail($id);
+        if ($report->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+        return view('reports.show', compact('report'));
     }
 
-    if ($report->photo_path) {
-        Storage::disk('public')->delete($report->photo_path);
+    public function showAdmin($id)
+    {
+        $report = Report::findOrFail($id);
+
+        return view('admin.show', compact('report'));
     }
 
-    $report->delete();
+    public function adminIndex(Request $request)
+    {
+        $query = Report::query();
 
-    return redirect()->route('reports.index')->with('success', 'Report deleted successfully.');
-}
+        $reports = $query->orderBy('created_at', 'desc')->paginate(9);
+        $totalReports = Report::count();
 
-public function show($id)
-{
-    $report = Report::findOrFail($id);
-    if ($report->user_id !== Auth::id()) {
-        abort(403, 'Unauthorized action.');
+        return view('admin.index', compact('reports', 'totalReports'));
     }
-    return view('reports.show', compact('report'));
-}
-
-public function adminIndex()
-{
-    $reports = Report::all();
-    return view('admin.index', compact('reports'));
-}
-
-
 }

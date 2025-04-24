@@ -48,6 +48,10 @@
                             red: '#c62828',
                             yellow: '#f9a825',
                         }
+                    },
+                    boxShadow: {
+                        'barangay': '0 4px 14px 0 rgba(0, 0, 0, 0.1)',
+                        'barangay-lg': '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
                     }
                 }
             }
@@ -55,11 +59,10 @@
     </script>
 </head>
 
-<body class="min-h-screen text-gray-900 bg-center bg-no-repeat bg-cover bg-gray-50 dark:bg-gray-900 dark:text-gray-100"
-    style="background-image: url('https://img.freepik.com/free-vector/light-green-paint-background_78370-1861.jpg');">
+<body class="min-h-screen text-gray-900 bg-gradient-to-br from-green-50 to-blue-50 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 dark:text-gray-100">
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-md dark:bg-gray-800">
+    <nav class="sticky top-0 z-50 shadow-sm bg-white/80 backdrop-blur-md dark:bg-gray-800/80">
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -78,18 +81,18 @@
                         <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                             @auth
                                 <a href="{{ url('/dashboard') }}"
-                                    class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-100">
+                                    class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 transition-colors duration-200 border-b-2 border-transparent dark:text-gray-300 hover:border-barangay-green hover:text-gray-700 dark:hover:text-gray-100">
                                     Dashboard
                                 </a>
                             @else
                                 <a href="{{ route('login') }}"
-                                    class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-100">
+                                    class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 transition-colors duration-200 border-b-2 border-transparent dark:text-gray-300 hover:border-barangay-green hover:text-gray-700 dark:hover:text-gray-100">
                                     Log in
                                 </a>
 
                                 @if (Route::has('register'))
                                     <a href="{{ route('register') }}"
-                                        class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-100">
+                                        class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 transition-colors duration-200 border-b-2 border-transparent dark:text-gray-300 hover:border-barangay-green hover:text-gray-700 dark:hover:text-gray-100">
                                         Register
                                     </a>
                                 @endif
@@ -107,18 +110,18 @@
             @if (Route::has('login'))
                 @auth
                     <a href="{{ url('/dashboard') }}"
-                        class="block py-2 pl-3 pr-4 text-base font-medium text-white border-l-4 bg-barangay-blue border-barangay-blue">
+                        class="block py-2 pl-3 pr-4 text-base font-medium text-white rounded-md bg-barangay-blue">
                         Dashboard
                     </a>
                 @else
                     <a href="{{ route('login') }}"
-                        class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-100">
+                        class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 transition-colors duration-200 rounded-md dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                         Log in
                     </a>
 
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}"
-                            class="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-100">
+                            class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 transition-colors duration-200 rounded-md dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                             Register
                         </a>
                     @endif
@@ -131,31 +134,29 @@
     <main class="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="text-center">
             <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
-                <span class="block text-barangay-green">Ubojan</span>
-                <span class="block text-barangay-blue">Report System</span>
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-barangay-green to-barangay-blue">Ubojan Report System</span>
             </h1>
             <p
-                class="max-w-md mx-auto mt-3 text-base text-gray-500 dark:text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                class="max-w-md mx-auto mt-3 text-base text-gray-600 dark:text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
                 A comprehensive system for managing barangay reports, complaints, and services.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 gap-8 mt-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-8 mt-16 sm:grid-cols-2 lg:grid-cols-3">
             <!-- Feature 1 -->
-            <div class="pt-6">
-                <div class="flow-root h-full px-6 pb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <div class="pt-6 transition-transform duration-300 hover:scale-105">
+                <div class="flow-root h-full px-6 pb-8 bg-white border rounded-xl shadow-barangay-lg dark:bg-gray-800/50 backdrop-blur-sm border-gray-100/50 dark:border-gray-700/50">
                     <div class="-mt-6">
                         <div
-                            class="flex items-center justify-center w-12 h-12 mx-auto text-white rounded-md bg-barangay-blue">
+                            class="flex items-center justify-center w-12 h-12 mx-auto text-white rounded-lg shadow-md bg-gradient-to-br from-barangay-blue to-blue-600">
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 4v16m8-8H4" />
                             </svg>
                         </div>
-                        <h3 class="mt-4 text-lg font-medium text-center text-gray-900 dark:text-white">Easy Report
-                            Submission</h3>
-                        <p class="mt-2 text-base text-gray-500 dark:text-gray-300">
+                        <h3 class="mt-4 text-lg font-medium text-center text-gray-900 dark:text-white">Easy Report Submission</h3>
+                        <p class="mt-2 text-base text-gray-600 dark:text-gray-300">
                             Residents can quickly and easily submit reports anytime through the system with just a few
                             clicks.
                         </p>
@@ -163,22 +164,20 @@
                 </div>
             </div>
 
-
             <!-- Feature 2 -->
-            <div class="pt-6">
-                <div class="flow-root h-full px-6 pb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <div class="pt-6 transition-transform duration-300 hover:scale-105">
+                <div class="flow-root h-full px-6 pb-8 bg-white border rounded-xl shadow-barangay-lg dark:bg-gray-800/50 backdrop-blur-sm border-gray-100/50 dark:border-gray-700/50">
                     <div class="-mt-6">
                         <div
-                            class="flex items-center justify-center w-12 h-12 mx-auto text-white rounded-md bg-barangay-green">
+                            class="flex items-center justify-center w-12 h-12 mx-auto text-white rounded-lg shadow-md bg-gradient-to-br from-barangay-green to-green-600">
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h3 class="mt-4 text-lg font-medium text-center text-gray-900 dark:text-white">Real-Time Status
-                            Updates</h3>
-                        <p class="mt-2 text-base text-gray-500 dark:text-gray-300">
+                        <h3 class="mt-4 text-lg font-medium text-center text-gray-900 dark:text-white">Real-Time Status Updates</h3>
+                        <p class="mt-2 text-base text-gray-600 dark:text-gray-300">
                             Residents and officials can monitor the progress and status of reported incidents in
                             real-time.
                         </p>
@@ -187,55 +186,53 @@
             </div>
 
             <!-- Feature 3 -->
-            <div class="pt-6">
-                <div class="flow-root h-full px-6 pb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <div class="pt-6 transition-transform duration-300 hover:scale-105">
+                <div class="flow-root h-full px-6 pb-8 bg-white border rounded-xl shadow-barangay-lg dark:bg-gray-800/50 backdrop-blur-sm border-gray-100/50 dark:border-gray-700/50">
                     <div class="-mt-6">
                         <div
-                            class="flex items-center justify-center w-12 h-12 mx-auto text-white rounded-md bg-barangay-yellow">
+                            class="flex items-center justify-center w-12 h-12 mx-auto text-white rounded-lg shadow-md bg-gradient-to-br from-barangay-yellow to-amber-500">
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 17v-2h6v2a2 2 0 01-2 2h-2a2 2 0 01-2-2zM12 7v6m0 0l3-3m-3 3l-3-3" />
                             </svg>
                         </div>
-                        <h3 class="mt-4 text-lg font-medium text-center text-gray-900 dark:text-white">Incident History
-                            and Analytics</h3>
-                        <p class="mt-2 text-base text-gray-500 dark:text-gray-300">
+                        <h3 class="mt-4 text-lg font-medium text-center text-gray-900 dark:text-white">Incident History and Analytics</h3>
+                        <p class="mt-2 text-base text-gray-600 dark:text-gray-300">
                             Officials can view historical data of reports, generate summaries, and analyze trends for
                             better decision-making.
                         </p>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Call to Action -->
-        <div class="mt-10 sm:mt-12">
-            <div class="overflow-hidden rounded-lg shadow-xl bg-barangay-green">
-                <div class="px-6 py-8 sm:p-10 sm:pb-6">
+        <div class="mt-16 sm:mt-20">
+            <div class="overflow-hidden shadow-2xl rounded-xl bg-gradient-to-br from-barangay-green to-green-600">
+                <div class="px-6 py-12 sm:p-12 sm:pb-10">
                     <div class="flex justify-center">
                         <div
-                            class="flex items-center justify-center flex-shrink-0 w-12 h-12 bg-white rounded-md text-barangay-green">
-                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="flex items-center justify-center flex-shrink-0 w-16 h-16 bg-white rounded-lg shadow-md text-barangay-green">
+                            <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                             </svg>
                         </div>
                     </div>
-                    <div class="mt-5 text-center">
-                        <h3 class="text-lg font-medium leading-6 text-white">Ready to get started?</h3>
-                        <div class="max-w-md mx-auto mt-3 text-base text-green-100">
+                    <div class="mt-8 text-center">
+                        <h3 class="text-2xl font-medium leading-6 text-white">Ready to get started?</h3>
+                        <div class="max-w-md mx-auto mt-4 text-lg text-green-100">
                             <p>
                                 Sign up now to access all barangay services and report management features.
                             </p>
                         </div>
-                        <div class="mt-6">
+                        <div class="mt-8">
                             @if (Route::has('register'))
-                                <div class="rounded-md shadow">
+                                <div class="rounded-lg shadow-lg">
                                     <a href="{{ route('register') }}"
-                                        class="flex items-center justify-center w-full px-8 py-3 text-base font-medium bg-white border border-transparent rounded-md text-barangay-green hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                                        class="flex items-center justify-center w-full px-8 py-4 text-lg font-medium text-white transition-all duration-300 bg-transparent border-2 border-white rounded-lg hover:bg-white hover:text-barangay-green md:text-xl md:px-12">
                                         Register for free
                                     </a>
                                 </div>
@@ -243,11 +240,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="px-6 py-5 text-center bg-green-700">
+                <div class="px-6 py-6 text-center bg-green-700/80">
                     <p class="text-sm leading-5 text-green-200">
                         Already have an account?
                         <a href="{{ route('login') }}"
-                            class="font-medium text-white transition duration-150 ease-in-out hover:text-green-100">
+                            class="font-medium text-white underline transition duration-150 ease-in-out hover:text-green-100 underline-offset-2">
                             Sign in
                         </a>
                     </p>
@@ -257,42 +254,42 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-12 bg-white dark:bg-gray-800">
+    <footer class="mt-24 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md">
         <div class="px-4 py-12 mx-auto overflow-hidden max-w-7xl sm:px-6 lg:px-8">
             <nav class="flex flex-wrap justify-center -mx-5 -my-2" aria-label="Footer">
                 <div class="px-5 py-2">
                     <a href="#"
-                        class="text-base text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                        class="text-base text-gray-600 transition-colors duration-200 dark:text-gray-300 hover:text-barangay-green dark:hover:text-white">
                         About
                     </a>
                 </div>
                 <div class="px-5 py-2">
                     <a href="#"
-                        class="text-base text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                        class="text-base text-gray-600 transition-colors duration-200 dark:text-gray-300 hover:text-barangay-green dark:hover:text-white">
                         Services
                     </a>
                 </div>
                 <div class="px-5 py-2">
                     <a href="#"
-                        class="text-base text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                        class="text-base text-gray-600 transition-colors duration-200 dark:text-gray-300 hover:text-barangay-green dark:hover:text-white">
                         Contact
                     </a>
                 </div>
                 <div class="px-5 py-2">
                     <a href="#"
-                        class="text-base text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                        class="text-base text-gray-600 transition-colors duration-200 dark:text-gray-300 hover:text-barangay-green dark:hover:text-white">
                         Privacy
                     </a>
                 </div>
                 <div class="px-5 py-2">
                     <a href="#"
-                        class="text-base text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                        class="text-base text-gray-600 transition-colors duration-200 dark:text-gray-300 hover:text-barangay-green dark:hover:text-white">
                         Terms
                     </a>
                 </div>
             </nav>
             <div class="flex justify-center mt-8 space-x-6">
-                <a href="#" class="text-gray-400 hover:text-gray-500">
+                <a href="#" class="text-gray-500 transition-colors duration-200 hover:text-barangay-green dark:text-gray-400 dark:hover:text-white">
                     <span class="sr-only">Facebook</span>
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill-rule="evenodd"
@@ -300,7 +297,7 @@
                             clip-rule="evenodd" />
                     </svg>
                 </a>
-                <a href="#" class="text-gray-400 hover:text-gray-500">
+                <a href="#" class="text-gray-500 transition-colors duration-200 hover:text-barangay-green dark:text-gray-400 dark:hover:text-white">
                     <span class="sr-only">Twitter</span>
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path
@@ -308,7 +305,7 @@
                     </svg>
                 </a>
             </div>
-            <p class="mt-8 text-base text-center text-gray-400 dark:text-gray-500">
+            <p class="mt-8 text-base text-center text-gray-500 dark:text-gray-400">
                 &copy; 2025 Barangay Report System. All rights reserved.
             </p>
         </div>

@@ -48,7 +48,7 @@
                             <select
                                 name="category"
                                 id="category"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 @error('category') border-red-500 @enderror"
+                                class="p-2 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 @error('category') border-red-500 @enderror"
                                 required
                                 x-on:change="showOther = ($event.target.value === 'Other Issue')"
                             >
@@ -98,8 +98,8 @@
                         </div>
 
                         <div class="mb-4 form-group">
-                            <label for="photos" class="block text-sm font-medium font-semibold text-gray-700">Evidence Photos (Max 3)</label>
-                            <input type="file" name="photos[]" id="photos" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 @error('photos.*') border-red-500 @enderror" multiple accept="image/*" max="3">
+                            <label for="photos" class="block text-sm font-medium font-semibold text-gray-700">Evidence Photo</label>
+                            <input type="file" name="photos" id="photos" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 @error('photos.*') border-red-500 @enderror" multiple accept="image/*" max="3">
                             @error('photos.*')
                                 <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                             @enderror
@@ -109,7 +109,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 font-semibold text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 font-semibold text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                                 Submit Report
                             </button>
                         </div>

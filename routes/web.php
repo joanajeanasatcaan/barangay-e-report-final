@@ -20,8 +20,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::post('/reports/store', [ReportController::class, 'store'])->name('reports.store');
 
-    Route::get('/reports/{report}/edit', [ReportController::class, 'edit'])->name('reports.edit');
-    Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
     Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
     Route::get('/reports/{report}', [ReportController::class, 'show'])->name('reports.show');
 });
@@ -31,7 +29,9 @@ require __DIR__.'/auth.php';
 Route::get('/admin/dashboard', [ReportController::class, 'adminIndex'])->middleware(['auth', 'admin'])->name('admin.index');
 
 Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [ReportController::class, 'adminDashboard'])->name('admin.dashboard');
     Route::get('/admin', [ReportController::class, 'adminIndex'])->name('admin.index');
+    Route::get('/admin/{id}', [ReportController::class, 'showAdmin'])->name('admin.show');
     Route::post('/admin/report/{id}/status', [ReportController::class, 'updateStatus'])->name('admin.report.status');
 });
 
