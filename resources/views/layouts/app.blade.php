@@ -16,7 +16,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased ">
-        <div class="absolute inset-0 bg-[url('/images/bg1.jpg')] bg-cover bg-center filter blur-md"></div>
+        <div class="absolute inset-0 bg-[url('/images/bg1.jpg')] bg-cover bg-center filter blur-xl"></div>
         <div class="relative min-h-screen overflow-hidden">
             @include('layouts.navigation')
 
