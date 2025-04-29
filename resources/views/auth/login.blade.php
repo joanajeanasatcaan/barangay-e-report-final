@@ -54,10 +54,10 @@
         </script>
     </head>
     <body class="min-h-screen text-gray-900 bg-center bg-no-repeat bg-cover bg-gray-50 dark:bg-gray-900 dark:text-gray-100"
-    style="background-image: url('https://img.freepik.com/free-vector/light-green-paint-background_78370-1861.jpg');">
+    style="background-image: url('/images/bg1.jpg');">
             <!-- Navigation -->
-        <nav class="bg-white shadow-md dark:bg-gray-800">
-            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <nav class="sticky top-0 z-50 border-green-300 shadow-sm bg-white/80 backdrop-blur-md dark:bg-gray-800/80">
+                <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex items-center">
                         <div class="flex items-center flex-shrink-0">

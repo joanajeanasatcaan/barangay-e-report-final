@@ -59,10 +59,10 @@
     </script>
 </head>
 
-<body class="min-h-screen text-gray-900 bg-gradient-to-br from-green-50 to-blue-50 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 dark:text-gray-100">
+<body class="min-h-screen text-gray-900 bg-[url('/images/bg1.jpg')] bg-cover bg-center bg-no-repeat">
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 shadow-sm bg-white/80 backdrop-blur-md dark:bg-gray-800/80">
+    <nav class="sticky top-0 z-50 border-green-300 shadow-sm bg-white/80 backdrop-blur-md dark:bg-gray-800/80">
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
